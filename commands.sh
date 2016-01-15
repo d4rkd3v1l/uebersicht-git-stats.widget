@@ -14,7 +14,7 @@ function getRepoAge
     	days=$((totalDays%365))
     	months=$((days/30))
     	age="$years years, $months months"
-	elif [ "$totalDays" -gt "30"]; then
+	elif [ "$totalDays" -gt "30" ]; then
 		months=$(($totalDays/30))
 		days=$((totalDays%30))
 		age="$months months, $days days"
