@@ -3,47 +3,68 @@
 command: 'git-stats.widget/commands.sh'
 refreshFrequency: 600000
 
-update: (output, domEl) ->
-  # console.log output
+render: (output) -> 
   data = JSON.parse(output)
-  $domEl = $(domEl)
-  $domEl.html("")
-
-  $domEl.append("<div align='center'>[ git-stats: <span class='name'>#{data.repoName}</span> ]</div><br />")
-  $domEl.append("<div>[ <span class='name'>age</span>: #{data.repoAge} ]</div><br />")
-  $domEl.append("<div>[ <span class='name'>commits</span>: #{data.commitCount} (#{data.commitsPerDay} per day) ]</div>")
-  $domEl.append("<div>[ <span class='name'>top devs</span> ]<br /><table>#{data.commitCountByDev}</table></div><br />")
-  $domEl.append("<div>[ <span class='name'>files</span>: #{data.fileCount} ]</div>")
-  $domEl.append("<div>[ <span class='name'>top files</span> ] <br /><table>#{data.fileCountByType}</table></div>")
+  """
+  <div class='header'><img class='logo' src='git-stats.widget/files/git-icon.svg' /><titleBold>git</titleBold><titleLight>-stats</titleLight></div>
+  <div><img class='icon' src='git-stats.widget/files/repo.svg' />#{data.repoName}</div>
+  <div><img class='icon' src='git-stats.widget/files/history.svg' />#{data.commitCount} commits</div>
+  <div><img class='icon' src='git-stats.widget/files/graph.svg' />#{data.commitsPerDay} commits per day</div>
+  <div><img class='icon' src='git-stats.widget/files/organization.svg' />#{data.commitCountByDev}</div>
+  <div><img class='icon' src='git-stats.widget/files/calendar.svg' />#{data.repoAge} old</div>
+  <div><img class='icon' src='git-stats.widget/files/file-text.svg' />#{data.fileCount} files</div>
+  <div><img class='icon' src='git-stats.widget/files/file-code.svg' />#{data.fileCountByType}</div>
+"""
 
 style: """
-  left 0%
-  bottom 0%
-  padding 0
-  margin 0
-  color #ccc
-  font-family Menlo
-  font-size 1em
-  width 500px
-  background-color rgba(0, 0, 0, 0.5) 
+  @font-face
+    font-family AdelleBold
+    src url(git-stats.widget/files/AdelleBold.otf)
+0
+  @font-face
+    font-family AdelleLight
+    src url(git-stats.widget/files/AdelleLight.otf)
 
+  left 0
+  bottom 0
+  padding 15px
+  margin 0
+  background rgba(#000, 0.5)
+  -webkit-backdrop-filter: blur(30px)
+
+  font-family AdelleLight
+  font-size 1em
+  color #52d089
+
+  div
+    display flex
+    flex-flow row wrap
+    align-items center
+    margin 5px
+
+  div.header
+    margin-bottom 20px
+
+  titleBold
+    font-family AdelleBold
+    font-size 3em
+    color #dc4d3c
+
+  titleLight
+    font-family AdelleLight
+    font-size 3em
+  
   table
     border-collapse collapse
 
-  span.name, th
-    font-weight bold
-    color lime
+  img.icon
+    width 25px
+    height @width
+    margin 5px 10px 5px 0px
+    align-self flex-start
 
-  .left
-    text-align left
-
-  .right 
-    text-align right
-
-  .item
-    text-align left
-
-  a
-    text-decoration none
-    color #ccc
+  img.logo
+    width 65px
+    height @height
+    margin-right 10px
 """
