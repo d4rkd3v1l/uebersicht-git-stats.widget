@@ -20,7 +20,7 @@ style: """
   @font-face
     font-family AdelleBold
     src url(git-stats.widget/files/AdelleBold.otf)
-0
+
   @font-face
     font-family AdelleLight
     src url(git-stats.widget/files/AdelleLight.otf)

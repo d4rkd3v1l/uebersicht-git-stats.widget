@@ -3,3 +3,6 @@
 
 ## Usage
 Just enter the path to a git repo in `config.sh`
+
+## Credits
+Thanks to @esthor for making this widget look nice :-)
