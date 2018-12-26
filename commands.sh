@@ -28,10 +28,16 @@ function getRepoAge
 commitCount=$(git rev-list HEAD --count)
 fileCount=$(git ls-files | wc -l)
 
+if [ "$totalDays" -eq "0" ]; then
+    commitsPerDay=$commitCount
+else
+    commitsPerDay=$commitCount/$totalDays
+fi
+
 results="{
 	\"repoName\":\"$(basename "$repoPath")\",
 	\"commitCount\":\"$commitCount\",
-	\"commitsPerDay\":\"$(echo "scale=2; $commitCount/$totalDays" | bc | sed 's/^\./0./')\",
+	\"commitsPerDay\":\"$(echo "scale=2; $commitsPerDay" | bc | sed 's/^\./0./')\",
 	\"commitCountByDev\":\"<table>$(git shortlog -s -n HEAD | head -5 | tr '\t' ' ' | awk '{printf "<tr><td>%s.&nbsp;</td><td>%-2s&nbsp;%2s&nbsp;</td><td>%d&nbsp;</td><td>(%.2f%s)</td></tr>", NR,$2,$3,$1,$1/'"$commitCount"'*100,"%"}')</table>\",
 	\"repoAge\":\"$(getRepoAge)\",
 	\"fileCount\":\"$fileCount\",
